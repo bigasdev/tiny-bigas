@@ -1,0 +1,14 @@
+{
+  "name": "tiny-bigas",
+  "version": "1.1.0",
+  "description": "testing npm",
+  "main": "index.js",
+  "scripts": {
+    "test": "testNpm"
+  },
+  "author": "bigasdev",
+  "license": "ISC",
+  "dependencies": {
+    "tiny-bigas": "^1.0.0"
+  }
+}
