@@ -2,7 +2,7 @@ const myModule = require('tiny-bigas');
 
 //our main element for the script, its the class that will handle all the button elements in screen
 class Button{
-    constructor(name, image, object, radius, position, callback){
+    constructor(name, image = [], object, radius, position, callback){
         this.name = name;
         this.image = image;
         this.object = object;
@@ -53,13 +53,17 @@ let debugMode = false;
 
 //array with all the updatefunctions the user can add in the preload
 let updateFunctions = [];
+let onInitialize = [];
 
 function initialize(){
     addKeyBinds()
     addCanvasBinds()
+    onInitialize.forEach(f =>{
+        f();
+    })
     var b = myModule.exports.getButtons();
     b.forEach(button=>{
-        createButton(100,100, myModule.exports.BUTTON_ASSET, button.position[0], button.position[1], button.callback);
+        createButton(100,100, button.images, button.position[0], button.position[1], button.callback);
     })
 }
 
@@ -136,16 +140,6 @@ function addKeyBinds(){
             }
         }
     })
-    document.addEventListener("keypress", function onEvent(event){
-        if(event.key === "d"){
-            moveElement(elements[1], 50);
-        }
-    })
-    document.addEventListener("keypress", function onEvent(event){
-        if(event.key === "a"){
-            moveElement(elements[1], -50);
-        }
-    })
 }
 //function to handle the binds we might need for the canvas i.e click and mousemove
 function addCanvasBinds(){
@@ -165,9 +159,9 @@ function addCanvasBinds(){
                 if(typeof button.callback === 'function'){
                     button.callback();
                 }
-                button.object.src = 'assets/buttonClicked.png'
+                button.object.src = button.imgs[2];
                 setTimeout(()=>{
-                    button.object.src = 'assets/buttonTest.png'
+                    button.object.src = button.imgs[0];
                 }, 100)
             }
         })
@@ -180,24 +174,24 @@ function addCanvasBinds(){
         buttons.forEach(button =>{
             if(isIntersect(pos, button)){
                 button.hover = true;
-                button.object.src = 'assets/buttonHover.png'
+                button.object.src = button.imgs[1];
             }else{
                 button.hover = false;
-                button.object.src = 'assets/buttonTest.png'
+                button.object.src = button.imgs[0];
             }
         })
     })
 }
 //the main function to create a button
-function createButton(width,height,src,x,y,callback){
+function createButton(width,height,src = [],x,y,callback){
     let image = new Image(width,height)
     let pos = {
         x: x,
         y: y
     }
-    image.src = src
+    image.src = src[0]
     image.onload = () => context.drawImage(image, pos.x,pos.y)
-    let b = new Button(image.localName, image.src, image, 8, pos, callback)
+    let b = new Button(image.localName, src, image, 8, pos, callback)
     buttons[buttons.length + 1] = b
 }
 
