@@ -2,9 +2,9 @@ const myModule = require('tiny-bigas');
 
 //our main element for the script, its the class that will handle all the button elements in screen
 class Button{
-    constructor(name, image = [], object, radius, position, callback){
+    constructor(name, imgs = [], object, radius, position, callback){
         this.name = name;
-        this.image = image;
+        this.imgs = imgs;
         this.object = object;
         //to handle interactions
         this.radius = radius;
@@ -63,7 +63,7 @@ function initialize(){
     })
     var b = myModule.exports.getButtons();
     b.forEach(button=>{
-        createButton(100,100, button.images, button.position[0], button.position[1], button.callback);
+        createButton(100,100, button.imgs, button.position[0], button.position[1], button.callback);
     })
 }
 

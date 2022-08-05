@@ -37,6 +37,9 @@ var exports = {
             console.log(button);
         })
     },
+    getDefaultButtons: function(){
+        return [this.DEFAULT_ASSETS_PATH+this.DEFAULT_BUTTON_ASSET, this.DEFAULT_ASSETS_PATH+this.DEFAULT_BUTTON_HOVER_ASSET, this.DEFAULT_ASSETS_PATH+this.DEFAULT_BUTTON_CLICK_ASSET];
+    },
     getAsset: function(name){
         return this.DEFAULT_ASSETS_PATH+name;
     }
