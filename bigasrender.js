@@ -234,5 +234,6 @@ var exports={
 
 module.exports ={
     updateFunctions,
+    onInitialize,
     exports
 };
